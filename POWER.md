@@ -54,48 +54,56 @@ El conocimiento está repartido en guías de steering que se cargan **bajo deman
 | `osint-leaks.md` | Leaks | Tipos de leak, Archives (Wayback, Pastebin), Internal Leaks (metadatos), Breaches. |
 | `osint-intelligence-reporte.md` | Intelligence | Origin → Impact → State, estructura de evidencia y plantilla de informe. |
 | `osint-herramientas-mcp.md` | (transversal) | Argumentos de cada herramienta, qué está apagado y por qué, verificación sin LLM, errores comunes. |
-| `osint-compuertas-aprendizaje.md` | (didáctica) | **Compuertas anti copy-paste:** el agente para en cada fase y exige el razonamiento del alumno (Observe/Orient/Decide) antes de ejecutar. Cárgala al inicio en modo laboratorio. |
+| `osint-spec-investigacion.md` | (didáctica, modo de clase) | **Léela en clase.** Cómo construir con el alumno el Spec de la investigación y ejecutarlo por tareas. |
+| `osint-spec-plantilla.md` | (didáctica) | Plantilla de `requirements.md`, `design.md` y `tasks.md` del Spec OSINT. |
+| `osint-compuertas-aprendizaje.md` | (didáctica) | Preguntas Observe/Orient/Decide por fase; las usan los hooks de tarea. |
 
 Cada guía incluye una tabla **técnica → herramienta del power**, que separa lo que cubre el MCP,
 lo que hace el humano en su navegador y lo que queda fuera de alcance (activo o con llave).
 
-## Modo laboratorio: compuertas de aprendizaje (anti *script kiddie*)
+## Modo de clase: investigación guiada con un Spec de Kiro
 
-Para uso en clase, el power incluye dos piezas que **frenan el flujo y piden al alumno su
-entendimiento y su decisión** antes de cada consulta, de modo que entienda el proceso en vez de
-copiar y pegar:
+Aprobar herramientas una por una no enseña OSINT. En clase, la investigación se convierte en un
+**Spec de Kiro** que el alumno construye **dialogando** con el agente, siguiendo la metodología de
+HTB, antes de ejecutar nada:
 
-1. **Steering `osint-compuertas-aprendizaje.md`** (cumplido por el modelo): convierte al agente en
-   un tutor socrático que se detiene en cada fase, exige que el alumno exprese Observe/Orient/Decide
-   con sus palabras, rechaza respuestas vacías o "solo hazlo", no se salta las compuertas aunque el
-   alumno lo pida (solo el instructor), y registra cada decisión en
-   `evidencia/osint/<objetivo>-<fecha>/bitacora-decisiones.md`. Cárgala al inicio de la sesión:
+| Documento del Spec | El alumno decide | Categorías HTB |
+|---|---|---|
+| `requirements.md` | Qué quiere saber el cliente y cuándo está respondido | Company Information, Infrastructure, Leaks, Intelligence |
+| `design.md` | Hipótesis inicial, frontera pasiva, matriz Core Elements × Information Resources, qué abre un ciclo nuevo | Metodología (recursos adaptados a la metodología) |
+| `tasks.md` | Orden de las tareas, una por categoría | Ciclos de lo general a lo detallado |
 
-   > Activa el Power osint-passive-recon y carga el steering osint-compuertas-aprendizaje.md; trátalo como obligatorio durante este laboratorio.
+El agente **pregunta y cuestiona; el alumno escribe**. Las herramientas pasivas corren dentro de cada
+tarea sin aprobación por llamada. La reflexión ocurre antes y después de cada tarea:
 
-2. **Hook `hooks/osint-gate.json`** (cumplido por el IDE): un `PreToolUse` que fuerza una
-   confirmación manual antes de cada herramienta MCP.
+- **Hook `hooks/osint-task-pre.json`** (`PreTaskExec`): el alumno dice qué espera encontrar y qué le
+  haría cambiar de idea.
+- **Hook `hooks/osint-task-post.json`** (`PostTaskExec`): el alumno clasifica hecho / inferencia /
+  hipótesis, revisa los criterios de aceptación y decide si abre un ciclo nuevo.
 
-   > **El hook solo pausa; no enseña por sí solo.** El mensaje del hook es un texto **fijo** (el IDE
-   > no le pasa qué herramienta ni con qué argumentos se llamó, así que no puede ser específico). Si
-   > el alumno solo ve ese mensaje, acabará dando "aprobar" sin pensar. Por eso la explicación real
-   > de *cada* consulta la da el agente en la **tarjeta de decisión** que escribe antes de llamar a
-   > la herramienta (regla obligatoria en `osint-metodologia-flujo.md`). El hook y la tarjeta son
-   > complementarios: la tarjeta explica, el hook obliga a detenerse y confirmar.
+Ambos registran las respuestas en `evidencia/osint/<objetivo>-<fecha>/bitacora-decisiones.md`.
 
-   **Instalar el power no activa el hook**: Kiro solo lee hooks de `.kiro/hooks/` del workspace y no
-   copia la carpeta `hooks/` del power. Cópialo a la carpeta de hooks del workspace del alumno:
+**Cómo empezar** (prompt para el alumno):
 
-   ```bash
-   mkdir -p .kiro/hooks && cp powers/osint-passive-recon/hooks/osint-gate.json .kiro/hooks/
-   ```
+> Activa el power osint-passive-recon y carga `osint-spec-investigacion.md`. Quiero crear el Spec de
+> investigación OSINT para <objetivo>. Hazme las preguntas; no escribas tú las respuestas.
 
-   Verás el hook en Kiro (sección *Agent Hooks*). Para una demo sin interrupciones, bórralo de
-   `.kiro/hooks/` o desactívalo desde esa sección.
+**Instalar los hooks** (el power no los activa solo; Kiro solo lee `.kiro/hooks/` del workspace):
 
-**Refuerzo recomendado:** pide a los alumnos trabajar en **modo Supervisado** (aprobación por cada
-acción) y entrega la bitácora de decisiones como parte calificable, más una breve defensa oral del
-informe. Las compuertas evitan el copy-paste; la evaluación del razonamiento lo confirma.
+```bash
+mkdir -p .kiro/hooks
+cp powers/osint-passive-recon/hooks/osint-task-pre.json powers/osint-passive-recon/hooks/osint-task-post.json .kiro/hooks/
+```
+
+Se activan en la siguiente sesión y solo actúan sobre Specs en `.kiro/specs/osint-*/`. Proceso
+completo en `osint-spec-investigacion.md`; plantilla en `osint-spec-plantilla.md`.
+
+**Qué se evalúa:** el Spec (razonamiento antes de ver datos), la bitácora de decisiones y si el
+informe se sostiene con la evidencia cruda. Comparar la hipótesis del design con lo encontrado sirve
+para la defensa oral.
+
+> El hook antiguo por herramienta (`hooks/legacy/osint-gate.json`) queda solo como referencia: pausa
+> cada llamada con un texto fijo y no ayuda a entender la investigación.
 
 ## Principios de OSINT
 

@@ -80,11 +80,14 @@ pasa la compuerta; una ejecución "a ciegas" no.
 
 ## Refuerzos externos (recomendados en el laboratorio)
 
-Las compuertas de este steering son cumplidas por el modelo. Para un cierre más duro, combínalas con:
+Las compuertas de este steering son cumplidas por el modelo. En clase se aplican **por tarea del
+Spec**, no por llamada a herramienta:
 
-- **Modo Supervisado de Kiro:** cada llamada a herramienta se aprueba a mano.
-- **Hook `PreToolUse`** del power (`hooks/osint-gate.json`): fuerza una confirmación manual con un
-  recordatorio del razonamiento antes de cada herramienta MCP. Instalación en `POWER.md`.
+- **Spec de investigación** (`osint-spec-investigacion.md`): las preguntas G1–GF de la tabla de
+  arriba se usan como preguntas guía al escribir `requirements.md` y `design.md`, y como pregunta de
+  arranque de cada tarea.
+- **Hooks `PreTaskExec` / `PostTaskExec`** del power (`hooks/osint-task-pre.json`,
+  `hooks/osint-task-post.json`): piden la hipótesis antes de la tarea y la interpretación al cerrarla.
 - **Bitácora de decisiones evaluable** y una breve **defensa oral** del informe.
 
 ## Modo instructor (levantar las compuertas)

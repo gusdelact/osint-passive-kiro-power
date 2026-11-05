@@ -92,6 +92,9 @@ llamarla. `whois_lookup` y `dns_lookup` del toolbox no requieren ningún binario
 aparecen como "no disponibles" casi siempre es esto, no una ausencia real.
 **Solución:** cargar la herramienta por su id exacto y volver a intentar la llamada. **No** marcarla
 como pendiente sin antes cargarla: eso confunde una herramienta disponible con una fuente caída.
+**Si no aparece ni en el catálogo diferido**, revisa `disabledTools` en `.kiro/settings/mcp.json` del
+workspace y en `~/.kiro/settings/mcp.json`: un servidor con el mismo nombre configurado ahí pisa la
+configuración del power. En ese caso es una decisión de configuración, no un fallo, y se documenta así.
 **Distinguir del caso real:** una herramienta diferida se resuelve cargándola (el dato sí es
 obtenible); crt.sh (HTTP 502) y `search_paste` (no resuelve `psbdmp.ws`) son **caídas de red** que sí
 se documentan como pendientes. Antes de escribir "pendiente", clasifica cuál de los dos casos es.

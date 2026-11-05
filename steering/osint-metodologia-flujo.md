@@ -114,31 +114,20 @@ Los subdominios nuevos de la fase 4 o 5 vuelven a la fase 2 (nuevo ciclo). Cada 
 **una por llamada y sin editar**, en `evidencia/osint/<objetivo>-<fecha>/herramientas/` (ver
 `osint-intelligence-reporte.md`).
 
-### Tarjeta de decisión antes de cada llamada (obligatoria)
+### Con alumnos: usar un Spec de investigación
 
-Aprobar una herramienta no debe ser un clic automático. **Antes de cada llamada MCP**, el agente
-**DEBE** escribir en el chat una tarjeta corta para que el alumno entienda **qué está aprobando**:
+En clase, el flujo de esta tabla no se recorre llamada por llamada aprobando herramientas. Se
+construye primero un **Spec de Kiro** (`requirements` → `design` → `tasks`) en diálogo con el alumno,
+y las herramientas se ejecutan por tarea. Ver `osint-spec-investigacion.md`.
 
-```text
-TARJETA DE DECISIÓN
-• Herramienta: osint-toolbox::dns_lookup
-• Consulta: registros A/AAAA/MX de blog.<dominio>
-• Qué envía y a quién: el nombre a resolvers DNS públicos (no al objetivo)
-• Por qué es pasiva: es una resolución DNS normal, la misma que hace cualquier visitante
-• Qué duda resuelve: ¿blog apunta a la misma IP que el apex o a un tercero?
-• Al aprobar, autorizas: esta única consulta pasiva sobre el objetivo autorizado
-```
+Fuera del Spec (demo del instructor, uso individual), el agente explica en una línea, **por fase y
+no por llamada**, qué pregunta responde la fase y por qué sus consultas son pasivas.
 
-Reglas de la tarjeta:
+### Evidencia: nunca borrar
 
-- Es **una llamada = una tarjeta**. No se agrupan varias herramientas en una sola aprobación.
-- La línea "por qué es pasiva" es obligatoria. Si el agente no puede justificarla, **no** propone la
-  llamada: la reconduce o la marca fuera de alcance.
-- La tarjeta se escribe **aunque el hook `osint-gate.json` esté activo**: el mensaje del hook es un
-  recordatorio corto y fijo; la explicación concreta de *esta* consulta vive en la tarjeta. Sin
-  tarjeta, el alumno solo ve "aprobar/cancelar" y pierde el aprendizaje.
-- En **modo laboratorio** (`osint-compuertas-aprendizaje.md`), la tarjeta no la escribe el agente:
-  la rellena el **alumno** con sus palabras (Observe/Orient/Decide) y el agente solo la valida.
+Cada corrida va en su propia carpeta (`evidencia/osint/<objetivo>-<fecha>[-runN]/`). El agente **no
+borra, mueve ni sobrescribe** evidencia de corridas anteriores, aunque cambie la convención de
+nombres. Si una corrida vieja no cumple el formato nuevo, se deja como está y se anota en el informe.
 
 ### Fase 0: la autorización la declara el humano, no el agente
 
@@ -158,6 +147,10 @@ Reglas:
   Si el humano no responde o la respuesta es ambigua, no se ejecuta ninguna herramienta.
 - Si durante la investigación aparece un dominio u organización **distinto** del autorizado (un
   tercero, otro dominio de la empresa), el agente se detiene y pregunta antes de consultarlo.
+- **La autorización no se hereda.** Un objetivo nuevo requiere su propia Fase 0 respondida por el
+  humano. El agente **no** escribe "asumo el mismo alcance" ni arranca hasta recibir la respuesta. Un
+  proveedor real (registrador, servicio de privacidad, hosting) casi nunca está autorizado: el
+  agente debe advertirlo al preguntar.
 
 ## Mapa de guías de steering de este power
 
@@ -171,4 +164,6 @@ Reglas:
 | `osint-leaks.md` | Archives, Internal Leaks, Breaches | Archivos históricos, metadatos, breaches. |
 | `osint-intelligence-reporte.md` | Intelligence (Origin → Impact → State) | Análisis final, evidencia e informe. |
 | `osint-herramientas-mcp.md` | (transversal) | Referencia de herramientas, guardrails y errores comunes. |
-| `osint-compuertas-aprendizaje.md` | (didáctica) | Compuertas anti copy-paste para uso en clase. |
+| `osint-spec-investigacion.md` | (didáctica, modo de clase) | Construir con el alumno el Spec de Kiro de la investigación y ejecutarlo por tareas. |
+| `osint-spec-plantilla.md` | (didáctica) | Plantilla de `requirements.md`, `design.md` y `tasks.md`. |
+| `osint-compuertas-aprendizaje.md` | (didáctica) | Preguntas Observe/Orient/Decide por fase; las usan los hooks de tarea. |
