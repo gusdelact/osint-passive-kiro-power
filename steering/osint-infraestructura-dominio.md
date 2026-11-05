@@ -1,10 +1,10 @@
 # OSINT: dominio, registros públicos y estructura
 
-> Steering del power **osint-passive-recon**, HTB *Open-Source Intelligence*, secciones 11–13
-> (Domain Information, Public Domain Records, Domain Structure). Es la parte del módulo mejor
-> cubierta por las herramientas MCP del power.
+> Steering del power **osint-passive-recon**. Cubre la categoría **Infrastructure** en su parte de
+> dominio: Domain Information, Public Domain Records y Domain Structure. Es la parte mejor cubierta
+> por las herramientas MCP del power.
 
-## Sección 11 — Domain Information
+## Domain Information
 
 De lo general a lo detallado, en tres categorías: **registros públicos**, **terceros** y
 **dominios** (SLD + TLD). El código público (GitHub, GitLab) puede filtrar IPs, hostnames,
@@ -13,12 +13,12 @@ configuraciones o credenciales: `search_github(query="<dominio>")`.
 > **Terceros** (hosting, CDN, cloud): aparecen en los registros, pero probar sus sistemas requiere
 > permiso explícito del proveedor. Ver `osint-cloud-terceros.md`.
 
-## Sección 12 — Public Domain Records
+## Public Domain Records
 
 Cuatro componentes a obtener: **1) netblocks/CIDR, 2) ASN, 3) servidores DNS, 4) servidores de
 correo**.
 
-| Comando HTB | Equivalente MCP en este power | Qué responde |
+| Comando típico | Equivalente MCP en este power | Qué responde |
 |---|---|---|
 | `whois <dominio>` / ICANN lookup | `search_rdap(domain=...)`; si el TLD no tiene RDAP, `search_whois(domain=...)` o `whois_lookup(query=...)` | Registrador, fechas, NS, Registry Domain ID |
 | `host www.<dominio>` | `search_dns(domain="www.<dominio>")` o `dns_lookup(name="www.<dominio>", types=["A","AAAA"])` | IP del servidor web |
@@ -49,7 +49,7 @@ anótalas.
 `p=none`. Ambos son **indicadores de exposición** (suplantación de correo), no vulnerabilidades
 confirmadas. DKIM no se revisa: sondear selectores es activo.
 
-## Sección 13 — Domain Structure
+## Domain Structure
 
 Técnicas de descubrimiento de subdominios. **Solo las cuatro primeras son pasivas**:
 
@@ -79,8 +79,8 @@ wayback_snapshots(match="domain") ─┼─▶ lista de nombres únicos
 - **vHosts:** dos o más subdominios en la misma IP sugieren hosting virtual.
 - **Nombres que ya no resuelven** (solo en Wayback o en certificados viejos) son huella histórica:
   documéntalos como tal, no como activos vivos.
-- Shodan, VirusTotal, Censys, SecurityTrails y C99 aparecen en el módulo, pero en este power están
-  apagados o fuera de alcance porque piden llave.
+- Shodan, VirusTotal, Censys, SecurityTrails y C99 son otras fuentes de subdominios conocidas, pero
+  en este power están apagadas o fuera de alcance porque piden llave.
 
 ## Documentar
 
@@ -88,10 +88,10 @@ Tabla de infraestructura: nombre → IP → ASN/organización → proveedor → 
 argumentos) → estado (vivo / histórico / tercero). Guardar cada salida cruda en
 `evidencia/osint/` (ver `osint-intelligence-reporte.md`).
 
-## Preguntas de laboratorio (HTB, sin respuestas)
+## Preguntas de autoevaluación (sin respuestas)
 
 - ¿Cuántos nameservers tiene el dominio?, FQDN del servidor de correo, Registry Domain ID,
-  registrador y contenido del TXT (sección 12).
-- Versión de Apache, proveedor de hosting, ASN, SO del servidor web y número de recursos JS
-  (sección 13). Algunas requieren fuentes con llave (Shodan) o la web en vivo: indica cuáles no
-  puedes responder con las herramientas del power.
+  registrador y contenido del TXT (Public Domain Records).
+- Versión del servidor web, proveedor de hosting, ASN, SO del servidor y número de recursos JS
+  (Domain Structure / Technologies in Use). Algunas requieren fuentes con llave (p. ej. Shodan) o la
+  web en vivo: indica cuáles **no** puedes responder con las herramientas del power.

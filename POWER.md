@@ -1,8 +1,8 @@
 ---
 name: "osint-passive-recon"
 displayName: "OSINT Passive Recon"
-description: "Curso completo de OSINT pasivo (HTB Academy, 23 secciones) con herramientas MCP sin API keys: Company Information, Infrastructure y Leaks, cerrando con Origin -> Impact -> State bajo metodología OODA. Combina OpenOSINT (RDAP, WHOIS, DNS, dorks, GitHub, pastes, IP) y OSINT Toolbox (crt.sh, Wayback Machine, ExifTool). Incluye guías de steering por categoría, referencia de herramientas, reglas de evidencia y plantilla de informe."
-keywords: ["osint", "reconocimiento-pasivo", "footprinting", "hack-the-box", "whois-rdap", "certificate-transparency", "wayback-machine"]
+description: "Curso completo de OSINT pasivo con herramientas MCP sin API keys: Company Information, Infrastructure y Leaks, cerrando con Origin -> Impact -> State bajo metodología OODA. Combina OpenOSINT (RDAP, WHOIS, DNS, dorks, GitHub, pastes, IP) y OSINT Toolbox (crt.sh, Wayback Machine, ExifTool). Incluye guías de steering por categoría, referencia de herramientas, reglas de evidencia y plantilla de informe."
+keywords: ["osint", "reconocimiento-pasivo", "footprinting", "whois-rdap", "certificate-transparency", "wayback-machine"]
 author: "Gustavo De la Cruz Tovar"
 ---
 
@@ -10,9 +10,9 @@ author: "Gustavo De la Cruz Tovar"
 
 ## Overview
 
-Este power entrega el **conocimiento del módulo Open-Source Intelligence de HTB Academy (23
-secciones)** y dos servidores MCP para practicarlo de forma **100 % pasiva** sobre un dominio u
-organización autorizada:
+Este power entrega un **cuerpo de conocimiento de OSINT pasivo** (metodología, categorías de
+información y flujo de trabajo) y dos servidores MCP para practicarlo de forma **100 % pasiva** sobre
+un dominio u organización autorizada:
 
 - **OpenOSINT**: RDAP, WHOIS, DNS con alertas SPF/DMARC, información de IP/ASN, generación de
   Google dorks, búsqueda en GitHub y en pastes.
@@ -26,34 +26,69 @@ OSINT **no busca entrar**: busca **entender sin tocar** cuánto puede saber cual
 organización, y dejarlo documentado con evidencia.
 
 > **Regla de encuadre:** solo se investigan objetivos dentro del alcance autorizado (dominio de
-> laboratorio como `inlanefreight.htb`/`example.com`, dominio propio o permiso por escrito). Este
+> laboratorio como `example.com`, dominio propio o permiso por escrito). Este
 > material es didáctico y no concede autorización por sí mismo. Si encuentras un bucket o servicio
 > expuesto, **lo documentas y te detienes**.
 
-Creado para el curso de **Hackeo Ético, Ingeniería Cibernética (ULSA)** con asistencia de Kiro. El
-criterio de selección de los servidores está en `ia_ethicalhack/osint/Investigacion_MCP_Server_OSINT.md`
-del repositorio del curso.
+Creado para el curso de **Hackeo Ético, Ingeniería Cibernética (ULSA)** con asistencia de Kiro.
+
+> **Base didáctica:** este power está construido sobre el módulo **"OSINT: Corporate Recon"** de
+> **Hack The Box Academy** ([academy.hackthebox.com/course/preview/osint-corporate-recon](https://academy.hackthebox.com/course/preview/osint-corporate-recon/osint-methodology)).
+> Las categorías (Company Information, Infrastructure, Leaks), la metodología de ciclos de lo
+> general a lo detallado y el cierre Origin → Impact → State provienen de ese módulo; aquí se
+> adaptan a un flujo reproducible con herramientas MCP sin API keys, compuertas de aprendizaje
+> anti copy-paste y entrega de evidencia versionable para uso académico.
 
 ## Cómo está organizado el conocimiento (steering/)
 
-Las 23 secciones están repartidas en guías de steering que se cargan **bajo demanda** (acción
+El conocimiento está repartido en guías de steering que se cargan **bajo demanda** (acción
 `readSteering`): lee solo la que necesites según la fase.
 
-| Guía | Secciones HTB | Contenido |
+| Guía | Categoría | Contenido |
 |---|---|---|
-| `osint-metodologia-flujo.md` | 1, 2, 3 | Principios, frontera legal pasivo/activo, dos navegadores, flujo por fases con las herramientas MCP. **Léela primero.** |
-| `osint-company-information.md` | 4–10 | Organization, Locations, Staff, Contact Information, Business Records, Services, Social Networks. |
-| `osint-infraestructura-dominio.md` | 11, 12, 13 | Domain Information, Public Domain Records (registro, DNS, ASN, netblocks), Domain Structure (subdominios). |
-| `osint-cloud-terceros.md` | 14, 16 | Cloud Storage (S3, Blob, GCS) y Third Parties, con la regla de detención. |
-| `osint-emails-redes-tecnologias.md` | 15, 17, 18 | Email Addresses, Compounded Networks, Technologies in Use. |
-| `osint-leaks.md` | 19–22 | Leaked Information, Archives (Wayback, Pastebin), Internal Leaks (metadatos), Breaches. |
-| `osint-intelligence-reporte.md` | 23 | Origin → Impact → State, estructura de evidencia y plantilla de informe. |
+| `osint-metodologia-flujo.md` | Metodología | Principios, frontera legal pasivo/activo, dos navegadores, flujo por fases con las herramientas MCP. **Léela primero.** |
+| `osint-company-information.md` | Company Information | Organization, Locations, Staff, Contact Information, Business Records, Services, Social Networks. |
+| `osint-infraestructura-dominio.md` | Infrastructure (dominio) | Domain Information, Public Domain Records (registro, DNS, ASN, netblocks), Domain Structure (subdominios). |
+| `osint-cloud-terceros.md` | Infrastructure (cloud) | Cloud Storage (S3, Blob, GCS) y Third Parties, con la regla de detención. |
+| `osint-emails-redes-tecnologias.md` | Infrastructure (email/tech) | Email Addresses, Compounded Networks, Technologies in Use. |
+| `osint-leaks.md` | Leaks | Tipos de leak, Archives (Wayback, Pastebin), Internal Leaks (metadatos), Breaches. |
+| `osint-intelligence-reporte.md` | Intelligence | Origin → Impact → State, estructura de evidencia y plantilla de informe. |
 | `osint-herramientas-mcp.md` | (transversal) | Argumentos de cada herramienta, qué está apagado y por qué, verificación sin LLM, errores comunes. |
+| `osint-compuertas-aprendizaje.md` | (didáctica) | **Compuertas anti copy-paste:** el agente para en cada fase y exige el razonamiento del alumno (Observe/Orient/Decide) antes de ejecutar. Cárgala al inicio en modo laboratorio. |
 
-Cada guía incluye una tabla **técnica HTB → herramienta del power**, que separa lo que cubre el MCP,
+Cada guía incluye una tabla **técnica → herramienta del power**, que separa lo que cubre el MCP,
 lo que hace el humano en su navegador y lo que queda fuera de alcance (activo o con llave).
 
-## Principios de OSINT (secciones 1–2)
+## Modo laboratorio: compuertas de aprendizaje (anti *script kiddie*)
+
+Para uso en clase, el power incluye dos piezas que **frenan el flujo y piden al alumno su
+entendimiento y su decisión** antes de cada consulta, de modo que entienda el proceso en vez de
+copiar y pegar:
+
+1. **Steering `osint-compuertas-aprendizaje.md`** (cumplido por el modelo): convierte al agente en
+   un tutor socrático que se detiene en cada fase, exige que el alumno exprese Observe/Orient/Decide
+   con sus palabras, rechaza respuestas vacías o "solo hazlo", no se salta las compuertas aunque el
+   alumno lo pida (solo el instructor), y registra cada decisión en
+   `evidencia/osint/<objetivo>-<fecha>/bitacora-decisiones.md`. Cárgala al inicio de la sesión:
+
+   > Activa el Power osint-passive-recon y carga el steering osint-compuertas-aprendizaje.md; trátalo como obligatorio durante este laboratorio.
+
+2. **Hook `hooks/osint-gate.json`** (cumplido por el IDE): un `PreToolUse` que fuerza una
+   confirmación manual antes de cada herramienta MCP, con un recordatorio del razonamiento exigido.
+   Instálalo copiándolo a la carpeta de hooks del workspace del alumno:
+
+   ```bash
+   mkdir -p .kiro/hooks && cp powers/osint-passive-recon/hooks/osint-gate.json .kiro/hooks/
+   ```
+
+   Verás el hook en Kiro (sección *Agent Hooks*). Para una demo sin interrupciones, bórralo de
+   `.kiro/hooks/` o desactívalo desde esa sección.
+
+**Refuerzo recomendado:** pide a los alumnos trabajar en **modo Supervisado** (aprobación por cada
+acción) y entrega la bitácora de decisiones como parte calificable, más una breve defensa oral del
+informe. Las compuertas evitan el copy-paste; la evaluación del razonamiento lo confirma.
+
+## Principios de OSINT
 
 - **Intelligence, no recolección.** El valor está en relacionar los datos, no en acumularlos. Elegir
   herramientas es ~10 % del trabajo.
@@ -67,17 +102,43 @@ lo que hace el humano en su navegador y lo que queda fuera de alcance (activo o 
 |---|---|---|
 | Organization, Locations, Staff, Contact Information, Business Records, Services, Social Networks | Domain Information, Public Domain Records, Domain Structure, Cloud Storage, Email Addresses, Third Parties, Compounded Networks, Technologies in Use | Archives, Internal Leaks, Breaches |
 
-Cierre: **Origin → Impact → State** (sección 23), que conecta cuándo se originó cada hallazgo, qué
+Cierre: **Origin → Impact → State**, que conecta cuándo se originó cada hallazgo, qué
 impacto tiene y qué estado se observa hoy.
 
 ## Metodología cognitiva: OSINT con OODA
 
-| Etapa | Pregunta | Qué haces |
+**OODA** es un ciclo de toma de decisiones formulado por el coronel **John Boyd** de la Fuerza Aérea
+de EE. UU. a partir de su experiencia como piloto de combate. Boyd observó que, en un duelo aéreo,
+no ganaba necesariamente el piloto con mejor avión, sino el que **completaba más rápido y con mejor
+información** el ciclo **Observe → Orient → Decide → Act**: mirar lo que pasa, interpretarlo con su
+experiencia y contexto, decidir una maniobra y ejecutarla, para luego volver a observar el resultado.
+
+El ciclo saltó de la aviación al negocio, al litigio y a la ciberseguridad porque describe cualquier
+situación en la que **se decide bajo incertidumbre con información parcial y cambiante**, que es
+exactamente el escenario de OSINT: nunca ves "toda" la superficie de una organización, solo señales
+indirectas (un registro DNS, un certificado, un snapshot de Wayback), y cada nueva señal cambia lo
+que conviene preguntar a continuación.
+
+Aplicado a OSINT pasivo, OODA fuerza tres disciplinas que evitan el "copy-paste de herramientas":
+
+1. **Pensar antes de ejecutar.** Nunca se lanza una consulta "a ver qué sale"; primero se nombra qué
+   se quiere reducir de incertidumbre.
+2. **Separar hechos de interpretaciones.** La salida cruda es el hecho; "usan Microsoft 365" es
+   interpretación. El informe los registra en columnas distintas.
+3. **Cerrar el ciclo con evidencia.** Cada "Act" produce un archivo guardado en
+   `evidencia/osint/`, no un recuerdo en la conversación.
+
+| Etapa | Pregunta | Qué haces en OSINT |
 |---|---|---|
 | **Observe** | ¿Qué sé realmente? | Lee la salida cruda de la herramienta. Separa **hechos** (MX apunta a `outlook.com`) de **inferencias** (usan Microsoft 365). |
-| **Orient** | ¿Qué significa? | Relaciona el dato con la categoría HTB y con otros hallazgos. Formula hipótesis. |
-| **Decide** | ¿Qué conviene y está autorizado? | Elige la consulta pasiva que reduzca la incertidumbre. Confirma que no toca al objetivo. |
-| **Act** | ¿Qué pasó? | Ejecuta, guarda la salida en `evidencia/osint/` y vuelve a Observe. |
+| **Orient** | ¿Qué significa? | Relaciona el dato con su categoría OSINT (Company / Infrastructure / Leaks) y con hallazgos previos. Formula hipótesis explícitas. |
+| **Decide** | ¿Qué conviene y está autorizado? | Elige la **próxima consulta pasiva** que reduzca la incertidumbre más grande. Confirma que no toca al objetivo. |
+| **Act** | ¿Qué pasó? | Ejecuta la herramienta MCP, guarda la salida cruda con fecha y argumentos en `evidencia/osint/`, y vuelve a Observe con el resultado. |
+
+Cada ciclo es corto (una pregunta, una herramienta, una salida) y encadena al siguiente: un
+subdominio nuevo descubierto en "Act" vuelve a entrar como "Observe" de otro ciclo sobre DNS y
+Wayback. Las compuertas de aprendizaje de este power (steering + hook) existen justamente para que
+el alumno no se salte Orient y Decide.
 
 ### Reglas cognitivas (críticas para el alumno)
 
@@ -90,7 +151,7 @@ impacto tiene y qué estado se observa hoy.
    con conocimiento del modelo.
 5. **Las herramientas son limitadas**: crt.sh falla, RDAP no cubre todos los TLD, ipinfo tiene cuota.
    Contrasta con una segunda fuente (`whois_lookup`, `dns_lookup`).
-6. **La información de una fase alimenta a otra.** Encadenar es el corazón del módulo.
+6. **La información de una fase alimenta a otra.** Encadenar es el corazón del método.
 
 ## Onboarding
 
@@ -216,9 +277,13 @@ sin rutas ni credenciales del usuario.
 
 ## Referencias
 
-- HTB Academy, módulo *Open-Source Intelligence* (23 secciones), PDFs en `osint/osint_HTB/`.
-- Material local: `osint/OSINT_HTB_Resumen.md`, `osint/Lab_OSINT_ACME.md`,
-  `ia_ethicalhack/osint/Investigacion_MCP_Server_OSINT.md`.
+- **Hack The Box Academy — "OSINT: Corporate Recon"** (base conceptual del power, incluye las
+  categorías Company Information / Infrastructure / Leaks y el cierre Origin → Impact → State):
+  <https://academy.hackthebox.com/course/preview/osint-corporate-recon/osint-methodology>.
+- Metodología **OODA** (Observe–Orient–Decide–Act) aplicada al reconocimiento pasivo.
+- Las guías de steering de este power son autocontenidas: metodología, categorías y flujo están en
+  `steering/osint-*.md`.
+- Paquetes de los servidores MCP: `openosint` y `osint-toolbox-mcp` (PyPI).
 
 ---
 

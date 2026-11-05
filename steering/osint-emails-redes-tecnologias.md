@@ -1,14 +1,14 @@
 # OSINT: correos, redes mixtas y tecnologías
 
-> Steering del power **osint-passive-recon**, HTB *Open-Source Intelligence*, secciones 15 (Email
-> Addresses), 17 (Compounded Networks) y 18 (Technologies in Use).
+> Steering del power **osint-passive-recon**. Cubre tres subcategorías de **Infrastructure**: Email
+> Addresses, Compounded Networks y Technologies in Use.
 
-## Sección 15 — Email Addresses
+## Email Addresses
 
 Lo que interesa es el **formato** (`nombre.apellido@dominio`, `inicialapellido@dominio`, alias por
 rol como `soporte@`) y los **dominios alternativos** o abreviados de la empresa.
 
-| Técnica HTB | En este power |
+| Técnica | En este power |
 |---|---|
 | theHarvester (múltiples fuentes) | **Apagado** (la CLI apunta a `/nonexistent/disabled`) |
 | Hunter.io, RocketReach | Fuera del power (cuenta o llave) |
@@ -23,7 +23,7 @@ rol como `soporte@`) y los **dominios alternativos** o abreviados de la empresa.
 > correo) ni se buscan sus contraseñas. En el lab solo se documentan correos de identidades
 > sintéticas. Un correo suplantable (SPF/DMARC débil) es un **indicador** de riesgo de phishing.
 
-## Sección 17 — Compounded Networks
+## Compounded Networks
 
 Facebook, Instagram, X/Twitter: plataformas donde se mezcla lo personal y lo profesional. La gente
 comparte opiniones (y a veces información sensible) porque se siente lejos de la empresa.
@@ -34,7 +34,7 @@ comparte opiniones (y a veces información sensible) porque se siente lejos de l
 - En este power: `generate_dorks` produce las plantillas de X/Twitter, Facebook e Instagram; las
   abre el humano. No hay scraping de redes sociales.
 
-## Sección 18 — Technologies in Use
+## Technologies in Use
 
 El stack tecnológico permite ajustar escenarios de ingeniería social y priorizar qué revisar en la
 fase activa.
@@ -54,7 +54,7 @@ fase activa.
 - Una versión antigua no es una vulnerabilidad confirmada: se relaciona con CVEs públicas como
   **posible** riesgo, a validar en una fase autorizada.
 
-## Preguntas de laboratorio (HTB, sin respuestas)
+## Preguntas de autoevaluación (sin respuestas)
 
-- Correo del CEO (sección 15).
-- Versión de WordPress, nombre del tema y WAF usado (sección 18).
+- Formato de correo de la empresa y un correo de un directivo (Email Addresses).
+- CMS y su versión, nombre del tema y WAF delante del sitio (Technologies in Use).

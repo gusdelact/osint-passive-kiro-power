@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "OSINT comprehension gate",
+      "trigger": "PreToolUse",
+      "matcher": "search_rdap|search_whois|search_dns|search_ip|generate_dorks|search_paste|search_github|crtsh_certificate_search|wayback_snapshots|whois_lookup|dns_lookup|exiftool_metadata",
+      "action": {
+        "type": "command",
+        "command": "printf '%s' '{\"hookSpecificOutput\":{\"permissionDecision\":\"ask\",\"permissionDecisionReason\":\"Compuerta OSINT: aprueba solo si puedes justificar esta consulta y es pasiva. Si no, cancela.\"}}'"
+      }
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 # OSINT: Intelligence, evidencia e informe
 
-> Steering del power **osint-passive-recon**, HTB *Open-Source Intelligence*, sección 23
-> (Intelligence), más las reglas de evidencia y la plantilla de informe del power.
+> Steering del power **osint-passive-recon**. Cubre la fase de **Intelligence** (Origin → Impact →
+> State), más las reglas de evidencia y la plantilla de informe del power.
 
-## Sección 23 — Origin → Impact → State
+## Intelligence: Origin → Impact → State
 
 La fase final es donde está el valor de OSINT: **descubrir y enlazar las conexiones** entre los
 hallazgos.
@@ -71,7 +71,7 @@ Objetivo, propósito, quién autoriza, técnicas permitidas y prohibidas, fechas
 3–5 frases sin tecnicismos: qué puede saber cualquiera sobre la organización.
 
 ## 3. Hallazgos
-| # | Categoría HTB | Hallazgo | Tipo (hecho/inferencia/hipótesis) | Fuente (herramienta + args) | Fecha | Impacto |
+| # | Categoría OSINT | Hallazgo | Tipo (hecho/inferencia/hipótesis) | Fuente (herramienta + args) | Fecha | Impacto |
 |---|---|---|---|---|---|---|
 
 ## 4. Infraestructura

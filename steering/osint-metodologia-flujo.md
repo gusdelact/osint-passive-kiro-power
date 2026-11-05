@@ -1,14 +1,13 @@
 # OSINT: metodología y flujo de trabajo
 
-> Guía de steering del power **osint-passive-recon**, derivada del módulo *Open-Source
-> Intelligence* de HTB Academy (secciones 1, 2 y 3). Es el punto de partida: explica los
-> principios, la frontera legal pasivo/activo y el flujo por fases con las herramientas MCP del
-> power. Las demás guías `osint-*.md` desarrollan cada categoría de información.
+> Guía de steering del power **osint-passive-recon**. Es el punto de partida: explica los
+> principios de OSINT, la frontera legal pasivo/activo y el flujo por fases con las herramientas MCP
+> del power. Las demás guías `osint-*.md` desarrollan cada categoría de información.
 >
 > **Encuadre:** solo se investigan objetivos autorizados (dominio de laboratorio, dominio propio o
 > permiso por escrito). OSINT es **solo pasivo**: se consulta a terceros, nunca al objetivo.
 
-## Qué es OSINT (sección 1)
+## Qué es OSINT
 
 OSINT es encontrar información **públicamente disponible** sobre una empresa o personas para
 identificar eventos, dependencias internas y externas y conexiones. La palabra clave es
@@ -38,11 +37,10 @@ objetivo. Cualquier enumeración activa ya **no es OSINT** y puede violar el con
 | Terceros que **escanean por encargo** al objetivo | **No** | Fuera de alcance |
 | Listar o abrir un bucket/servicio encontrado | **No** | Se documenta y se detiene |
 
-> Ejemplo del curso: encontrar un bucket S3 abierto **adivinando nombres** ya es una violación de
-> contrato aunque nunca se abra. Regla mental del caso ACME: no es "mirar sin tocar", es
-> **"entender sin tocar"**.
+> Ejemplo: encontrar un bucket S3 abierto **adivinando nombres** ya es una violación de contrato
+> aunque nunca se abra. La regla mental es: no es "mirar sin tocar", es **"entender sin tocar"**.
 
-## Metodología (sección 2)
+## Metodología
 
 OSINT se apoya en dos conceptos que dependen uno del otro:
 
@@ -50,6 +48,9 @@ OSINT se apoya en dos conceptos que dependen uno del otro:
   hashes, URLs, contraseñas.
 - **Information Resources**, de dónde lo sacamos: home page, archivos, redes sociales, buscadores,
   plataformas de desarrollo, fuentes de leaks.
+
+Este power organiza la información en **tres grandes categorías**, cada una desarrollada en su guía
+de steering:
 
 | Company Information | Infrastructure | Leaks |
 |---|---|---|
@@ -82,7 +83,7 @@ csvtojson < history.csv | jq .                     # historial exportado -> JSON
 cat *.html | html2text | grep "Nombre Apellido"     # buscar en las páginas guardadas
 ```
 
-## Investigación de negocio: preguntas guía (sección 3)
+## Investigación de negocio: preguntas guía
 
 - **Company Information:** ¿cuántos empleados?, ¿qué servicios ofrece?, ¿posición en el mercado?,
   ¿situación financiera?, ¿ubicaciones?, ¿seguridad física?, ¿reputación?
@@ -114,13 +115,14 @@ Los subdominios nuevos de la fase 4 o 5 vuelven a la fase 2 (nuevo ciclo). Cada 
 
 ## Mapa de guías de steering de este power
 
-| Guía | Secciones HTB | Cuándo usarla |
+| Guía | Categorías que cubre | Cuándo usarla |
 |---|---|---|
-| `osint-metodologia-flujo.md` | 1, 2, 3 | Punto de partida: principios, frontera legal y flujo. |
-| `osint-company-information.md` | 4–10 | Organización, ubicaciones, personal, contacto, negocio, servicios, redes. |
-| `osint-infraestructura-dominio.md` | 11, 12, 13 | Registro del dominio, DNS, ASN/netblocks, subdominios. |
-| `osint-cloud-terceros.md` | 14, 16 | Almacenamiento cloud y proveedores externos. |
-| `osint-emails-redes-tecnologias.md` | 15, 17, 18 | Formato de email, redes mixtas, stack tecnológico. |
-| `osint-leaks.md` | 19, 20, 21, 22 | Archivos históricos, metadatos, breaches. |
-| `osint-intelligence-reporte.md` | 23 | Origin → Impact → State, evidencia e informe. |
+| `osint-metodologia-flujo.md` | Principios y flujo | Punto de partida: principios, frontera legal y flujo. |
+| `osint-company-information.md` | Organization, Locations, Staff, Contact Information, Business Records, Services, Social Networks | Empresa y personas. |
+| `osint-infraestructura-dominio.md` | Domain Information, Public Domain Records, Domain Structure | Registro del dominio, DNS, ASN/netblocks, subdominios. |
+| `osint-cloud-terceros.md` | Cloud Storage, Third Parties | Almacenamiento cloud y proveedores externos. |
+| `osint-emails-redes-tecnologias.md` | Email Addresses, Compounded Networks, Technologies in Use | Formato de email, redes mixtas, stack tecnológico. |
+| `osint-leaks.md` | Archives, Internal Leaks, Breaches | Archivos históricos, metadatos, breaches. |
+| `osint-intelligence-reporte.md` | Intelligence (Origin → Impact → State) | Análisis final, evidencia e informe. |
 | `osint-herramientas-mcp.md` | (transversal) | Referencia de herramientas, guardrails y errores comunes. |
+| `osint-compuertas-aprendizaje.md` | (didáctica) | Compuertas anti copy-paste para uso en clase. |

@@ -1,9 +1,9 @@
 # OSINT: Leaks (archivos, filtraciones internas y breaches)
 
-> Steering del power **osint-passive-recon**, HTB *Open-Source Intelligence*, secciones 19 (Leaked
-> Information), 20 (Archives), 21 (Internal Leaks) y 22 (Breaches).
+> Steering del power **osint-passive-recon**. Cubre la categoría **Leaks**: tipos de filtración,
+> Archives, Internal Leaks (metadatos) y Breaches.
 
-## Sección 19 — Tipos de leak
+## Tipos de leak
 
 Un leak divulga información que no estaba destinada al público:
 
@@ -13,7 +13,7 @@ Un leak divulga información que no estaba destinada al público:
 
 Se buscan en tres campos: **Archives**, **Internal Leaks** y **Breaches**.
 
-## Sección 20 — Archives
+## Archives
 
 ### Wayback Machine
 
@@ -41,7 +41,7 @@ Como alternativa manual, el dork `site:pastebin.com "<dominio>"`.
 > Si aparece una credencial o un dato personal en un paste, se documenta **la existencia** (URL,
 > fecha, tipo de dato) con el valor **ofuscado**. Nunca se prueba la credencial.
 
-## Sección 21 — Internal Leaks: metadatos
+## Internal Leaks: metadatos
 
 Casi todo archivo (PDF, DOCX, imágenes) guarda metadatos al editarse: aplicación y versión, SO,
 autor, empresa, fechas e incluso coordenadas GPS.
@@ -73,7 +73,7 @@ autor, empresa, fechas e incluso coordenadas GPS.
 - Otras fuentes de leaks internos: calendarios públicos, código en GitHub/GitLab con secretos
   olvidados (`search_github`).
 
-## Sección 22 — Breaches
+## Breaches
 
 Documentación de filtraciones ya existentes (p. ej. Collection #1-5: ~773 M de correos únicos y
 ~1 160 M de combinaciones correo+contraseña).
@@ -81,7 +81,7 @@ Documentación de filtraciones ya existentes (p. ej. Collection #1-5: ~773 M de 
 | Fuente | En este power |
 |---|---|
 | HaveIBeenPwned | **Apagado** (`search_breach` requiere llave). Consulta manual solo con correos propios o del lab |
-| Listas de contraseñas filtradas | **Fuera de alcance**: descargar o usar credenciales filtradas no es OSINT pasivo del curso |
+| Listas de contraseñas filtradas | **Fuera de alcance**: descargar o usar credenciales filtradas no es OSINT pasivo |
 | CVE Details, Exploit-DB, NVD | Consulta manual para relacionar una versión inferida con CVEs **posibles** |
 
 - **0-day:** vulnerabilidad pública sin parche. **N-day:** el parche existe pero el objetivo no lo
@@ -89,7 +89,7 @@ Documentación de filtraciones ya existentes (p. ej. Collection #1-5: ~773 M de 
 - Un breach que menciona al dominio es un hallazgo de **exposición**: indica la fuente y la fecha,
   no los datos.
 
-## Preguntas de laboratorio (HTB, sin respuestas)
+## Preguntas de autoevaluación (sin respuestas)
 
-- Encontrar información adicional que contiene un archivo publicado y entregar la flag
-  (sección 21).
+- A partir de un documento público, ¿qué información adicional revelan sus metadatos (autor,
+  software, rutas, GPS)? (Internal Leaks).

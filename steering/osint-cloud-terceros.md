@@ -1,13 +1,13 @@
 # OSINT: almacenamiento cloud y terceros
 
-> Steering del power **osint-passive-recon**, HTB *Open-Source Intelligence*, secciones 14 (Cloud
-> Storage) y 16 (Third Parties).
+> Steering del power **osint-passive-recon**. Cubre dos subcategorías de **Infrastructure**: Cloud
+> Storage y Third Parties.
 
 > **Regla de detención:** si encuentras un bucket, blob o servicio expuesto, **lo documentas y te
 > detienes**. Listarlo, abrirlo o descargar su contenido ya es interacción y queda fuera de alcance.
 > Adivinar nombres de buckets (brute-forcing) también está prohibido.
 
-## Sección 14 — Cloud Storage
+## Cloud Storage
 
 | Proveedor | Almacenamiento | Patrón de URL a reconocer |
 |---|---|---|
@@ -16,8 +16,8 @@
 | GCP | Cloud Storage | `storage.googleapis.com/<bucket>`, `googleapis.com/storage/v1/b/<bucket>` |
 | DigitalOcean | Spaces | `<bucket>.<region>.digitaloceanspaces.com` |
 
-Según el módulo, cerca del **95 %** de las vulnerabilidades cloud son **misconfiguraciones**
-(ACLs, bucket policies, IAM, bloqueo de acceso público).
+La gran mayoría de las exposiciones cloud son **misconfiguraciones** (ACLs, bucket policies, IAM,
+bloqueo de acceso público), no fallos del proveedor.
 
 ### Descubrimiento pasivo con el power
 
@@ -36,7 +36,7 @@ Según el módulo, cerca del **95 %** de las vulnerabilidades cloud son **miscon
 - Riesgo crítico si aparece: **claves SSH privadas o credenciales** en un archivo público. Se
   documenta la ubicación y se avisa al docente; no se descarga ni se usa.
 
-## Sección 16 — Third Parties
+## Third Parties
 
 Identificar proveedores externos (hosting, CDN, SaaS, correo) es trabajo manual a partir de NS, MX,
 TXT, ASN y las tecnologías detectadas.
@@ -56,7 +56,7 @@ o salida + herramienta) → implicación (p. ej. "correo en Microsoft 365: posib
 compartidos"). Los recursos cloud expuestos van con su URL, fecha, cómo se encontraron y la nota
 "no verificado: requiere autorización".
 
-## Preguntas de laboratorio (HTB, sin respuestas)
+## Preguntas de autoevaluación (sin respuestas)
 
-- Nombre del bucket de AWS usado por la empresa (sección 14).
-- Proveedor cloud en el que se enfoca la empresa (sección 16).
+- Nombre del bucket de almacenamiento usado por la empresa (Cloud Storage).
+- Proveedor cloud principal en el que se apoya la empresa (Third Parties).
