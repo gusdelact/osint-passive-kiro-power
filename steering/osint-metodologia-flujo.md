@@ -114,14 +114,18 @@ Los subdominios nuevos de la fase 4 o 5 vuelven a la fase 2 (nuevo ciclo). Cada 
 **una por llamada y sin editar**, en `evidencia/osint/<objetivo>-<fecha>/herramientas/` (ver
 `osint-intelligence-reporte.md`).
 
-### Con alumnos: usar un Spec de investigación
+### Modos de trabajo
 
-En clase, el flujo de esta tabla no se recorre llamada por llamada aprobando herramientas. Se
-construye primero un **Spec de Kiro** (`requirements` → `design` → `tasks`) en diálogo con el alumno,
-y las herramientas se ejecutan por tarea. Ver `osint-spec-investigacion.md`.
+Este flujo se recorre en uno de tres modos (detalle en `osint-modos-trabajo.md`):
 
-Fuera del Spec (demo del instructor, uso individual), el agente explica en una línea, **por fase y
-no por llamada**, qué pregunta responde la fase y por qué sus consultas son pasivas.
+- **Rápido:** el agente recorre la tabla de corrido y explica cada fase en una línea.
+- **Guiado:** el alumno razona antes y después de cada fase (`osint-compuertas-aprendizaje.md`).
+- **Spec:** el alumno planea la investigación en un Spec de Kiro antes de ejecutar
+  (`osint-spec-investigacion.md`).
+
+Si el humano no indica el modo, el agente lo pregunta **antes que nada**, antes incluso de la Fase 0
+(ver "Al activar este power" en `POWER.md`). En ningún modo hay tarjetas ni aprobaciones por
+herramienta.
 
 ### Evidencia: nunca borrar
 
@@ -131,7 +135,8 @@ nombres. Si una corrida vieja no cumple el formato nuevo, se deja como está y s
 
 ### Fase 0: la autorización la declara el humano, no el agente
 
-Antes de la primera llamada a herramienta, el agente **pregunta y espera respuesta** a:
+Con el modo ya elegido, y antes de la primera llamada a herramienta, el agente **pregunta y espera
+respuesta** a:
 
 1. ¿Cuál es el objetivo exacto (dominio u organización)?
 2. ¿Quién autoriza la investigación y con qué base (laboratorio del curso, dominio propio, permiso
@@ -164,6 +169,7 @@ Reglas:
 | `osint-leaks.md` | Archives, Internal Leaks, Breaches | Archivos históricos, metadatos, breaches. |
 | `osint-intelligence-reporte.md` | Intelligence (Origin → Impact → State) | Análisis final, evidencia e informe. |
 | `osint-herramientas-mcp.md` | (transversal) | Referencia de herramientas, guardrails y errores comunes. |
-| `osint-spec-investigacion.md` | (didáctica, modo de clase) | Construir con el alumno el Spec de Kiro de la investigación y ejecutarlo por tareas. |
+| `osint-modos-trabajo.md` | (didáctica) | Los tres modos (Rápido, Guiado, Spec), sus paradas y las reglas comunes. |
+| `osint-spec-investigacion.md` | (didáctica, modo Spec) | Construir con el alumno el Spec de Kiro de la investigación y ejecutarlo por tareas. |
 | `osint-spec-plantilla.md` | (didáctica) | Plantilla de `requirements.md`, `design.md` y `tasks.md`. |
 | `osint-compuertas-aprendizaje.md` | (didáctica) | Preguntas Observe/Orient/Decide por fase; las usan los hooks de tarea. |

@@ -8,6 +8,23 @@ author: "Gustavo De la Cruz Tovar"
 
 # OSINT Passive Recon
 
+## Al activar este power (obligatorio, en este orden)
+
+1. **Modo de trabajo.** Si el prompt no indica el modo, el agente lo pregunta **antes que nada** y
+   espera la respuesta. No lo elige por su cuenta. Lo pregunta así:
+
+   > ¿En qué modo trabajamos?
+   > - **Rápido:** yo recorro el flujo completo y te explico cada fase en una línea. Para demos o práctica individual.
+   > - **Guiado:** antes y después de cada fase me dices qué buscas y qué significa lo que salió. Para aprender el flujo.
+   > - **Spec:** primero planeamos juntos la investigación en un Spec de Kiro (qué quieres saber, de dónde y cómo) y luego se ejecuta por tareas. Para un entregable.
+
+2. **Cargar la guía del modo:** Rápido → `osint-metodologia-flujo.md`; Guiado →
+   `osint-compuertas-aprendizaje.md`; Spec → `osint-spec-investigacion.md`. En todos los modos
+   también `osint-modos-trabajo.md` (reglas comunes).
+3. **Fase 0:** preguntar objetivo, quién autoriza y propósito, y esperar la respuesta. Escribir
+   `00-alcance.md` con las palabras del humano, incluido el campo `Modo:`.
+4. **Seguir según el modo.** Ninguna herramienta MCP se ejecuta antes de completar los pasos 1 y 3.
+
 ## Overview
 
 Este power entrega un **cuerpo de conocimiento de OSINT pasivo** (metodología, categorías de
@@ -54,53 +71,64 @@ El conocimiento está repartido en guías de steering que se cargan **bajo deman
 | `osint-leaks.md` | Leaks | Tipos de leak, Archives (Wayback, Pastebin), Internal Leaks (metadatos), Breaches. |
 | `osint-intelligence-reporte.md` | Intelligence | Origin → Impact → State, estructura de evidencia y plantilla de informe. |
 | `osint-herramientas-mcp.md` | (transversal) | Argumentos de cada herramienta, qué está apagado y por qué, verificación sin LLM, errores comunes. |
-| `osint-spec-investigacion.md` | (didáctica, modo de clase) | **Léela en clase.** Cómo construir con el alumno el Spec de la investigación y ejecutarlo por tareas. |
+| `osint-modos-trabajo.md` | (didáctica) | **Léela al inicio.** Los modos Rápido, Guiado y Spec, sus paradas y las reglas comunes. |
+| `osint-spec-investigacion.md` | (didáctica, modo Spec) | Cómo construir con el alumno el Spec de la investigación y ejecutarlo por tareas. |
 | `osint-spec-plantilla.md` | (didáctica) | Plantilla de `requirements.md`, `design.md` y `tasks.md` del Spec OSINT. |
-| `osint-compuertas-aprendizaje.md` | (didáctica) | Preguntas Observe/Orient/Decide por fase; las usan los hooks de tarea. |
+| `osint-compuertas-aprendizaje.md` | (didáctica, modo Guiado) | Compuertas Observe/Orient/Decide antes y después de cada fase. |
 
 Cada guía incluye una tabla **técnica → herramienta del power**, que separa lo que cubre el MCP,
 lo que hace el humano en su navegador y lo que queda fuera de alcance (activo o con llave).
 
-## Modo de clase: investigación guiada con un Spec de Kiro
+## Modos de trabajo
 
-Aprobar herramientas una por una no enseña OSINT. En clase, la investigación se convierte en un
-**Spec de Kiro** que el alumno construye **dialogando** con el agente, siguiendo la metodología de
-HTB, antes de ejecutar nada:
+El power se usa en uno de tres modos. Todos usan las mismas herramientas, la misma frontera pasiva y
+la misma evidencia; cambia **quién piensa en cada paso** y **dónde se detiene el agente**. Detalle en
+`osint-modos-trabajo.md`.
+
+| | **Rápido** | **Guiado** | **Spec** |
+|---|---|---|---|
+| Para qué | Demo del instructor, práctica individual | Laboratorio: aprender el flujo fase por fase | Entregable: planear antes de ver datos |
+| Guía | `osint-metodologia-flujo.md` | `osint-compuertas-aprendizaje.md` | `osint-spec-investigacion.md` |
+| Paradas | Solo alcance, objetivo nuevo, bucket expuesto, técnica activa y final | Antes y después de cada **fase** | Al escribir cada documento del Spec y antes/después de cada **tarea** |
+| Quién decide qué consultar | El agente | El alumno, por fase | El alumno, en el `design.md` |
+| Hooks | Ninguno | Ninguno | `osint-task-pre.json` y `osint-task-post.json` |
+| Entregables extra | — | `bitacora-decisiones.md` | Bitácora + Spec en `.kiro/specs/osint-<objetivo>/` |
+
+En ningún modo hay aprobación ni tarjeta por herramienta. Si el humano no indica el modo, el agente
+lo pregunta antes que nada (ver "Al activar este power"). Pasar a un modo con **más** paradas lo puede pedir cualquiera; pasar a uno
+con **menos** paradas, solo el instructor.
+
+**Prompts de arranque:**
+
+- **Rápido:** *Activa el power osint-passive-recon en modo Rápido. Objetivo: <dominio>.*
+- **Guiado:** *Activa el power osint-passive-recon en modo Guiado y carga
+  `osint-compuertas-aprendizaje.md`. Objetivo: <dominio>. Detente en cada fase y pregúntame.*
+- **Spec:** *Activa el power osint-passive-recon en modo Spec y carga `osint-spec-investigacion.md`.
+  Quiero crear el Spec de investigación OSINT para <dominio>. Hazme las preguntas; no escribas tú las
+  respuestas.*
+
+### Modo Spec: documentos y hooks
 
 | Documento del Spec | El alumno decide | Categorías HTB |
 |---|---|---|
 | `requirements.md` | Qué quiere saber el cliente y cuándo está respondido | Company Information, Infrastructure, Leaks, Intelligence |
-| `design.md` | Hipótesis inicial, frontera pasiva, matriz Core Elements × Information Resources, qué abre un ciclo nuevo | Metodología (recursos adaptados a la metodología) |
+| `design.md` | Hipótesis inicial, frontera pasiva, matriz Core Elements × Information Resources, qué abre un ciclo nuevo | Metodología |
 | `tasks.md` | Orden de las tareas, una por categoría | Ciclos de lo general a lo detallado |
-
-El agente **pregunta y cuestiona; el alumno escribe**. Las herramientas pasivas corren dentro de cada
-tarea sin aprobación por llamada. La reflexión ocurre antes y después de cada tarea:
 
 - **Hook `hooks/osint-task-pre.json`** (`PreTaskExec`): el alumno dice qué espera encontrar y qué le
   haría cambiar de idea.
 - **Hook `hooks/osint-task-post.json`** (`PostTaskExec`): el alumno clasifica hecho / inferencia /
-  hipótesis, revisa los criterios de aceptación y decide si abre un ciclo nuevo.
+  hipótesis, revisa los criterios y decide si abre un ciclo nuevo.
 
-Ambos registran las respuestas en `evidencia/osint/<objetivo>-<fecha>/bitacora-decisiones.md`.
-
-**Cómo empezar** (prompt para el alumno):
-
-> Activa el power osint-passive-recon y carga `osint-spec-investigacion.md`. Quiero crear el Spec de
-> investigación OSINT para <objetivo>. Hazme las preguntas; no escribas tú las respuestas.
-
-**Instalar los hooks** (el power no los activa solo; Kiro solo lee `.kiro/hooks/` del workspace):
+Los hooks solo actúan sobre Specs en `.kiro/specs/osint-*/`, así que no interfieren con los modos
+Rápido y Guiado. El power no los activa solo (Kiro solo lee `.kiro/hooks/` del workspace):
 
 ```bash
 mkdir -p .kiro/hooks
 cp powers/osint-passive-recon/hooks/osint-task-pre.json powers/osint-passive-recon/hooks/osint-task-post.json .kiro/hooks/
 ```
 
-Se activan en la siguiente sesión y solo actúan sobre Specs en `.kiro/specs/osint-*/`. Proceso
-completo en `osint-spec-investigacion.md`; plantilla en `osint-spec-plantilla.md`.
-
-**Qué se evalúa:** el Spec (razonamiento antes de ver datos), la bitácora de decisiones y si el
-informe se sostiene con la evidencia cruda. Comparar la hipótesis del design con lo encontrado sirve
-para la defensa oral.
+Hay un Spec de ejemplo completo en `.kiro/specs/osint-inlanefreight-ejemplo/` del workspace del curso.
 
 > El hook antiguo por herramienta (`hooks/legacy/osint-gate.json`) queda solo como referencia: pausa
 > cada llamada con un texto fijo y no ayuda a entender la investigación.
@@ -224,8 +252,9 @@ Argumentos, límites y lo que está apagado: `osint-herramientas-mcp.md`.
 
 ## Flujo de trabajo típico
 
-1. **Alcance:** el agente **pregunta** objetivo, quién autoriza y propósito, y espera la respuesta.
-   No se autodeclara autorizado. Escribe `evidencia/osint/<objetivo>-<fecha>/00-alcance.md` con las
+1. **Modo y alcance:** primero el modo (si no se indicó; ver "Al activar este power"). Después el
+   agente **pregunta** objetivo, quién autoriza y propósito, y espera la respuesta. No se autodeclara
+   autorizado. Escribe `evidencia/osint/<objetivo>-<fecha>/00-alcance.md` con las
    palabras del humano (ver Fase 0 en `osint-metodologia-flujo.md`).
 2. **Registro:** `search_rdap(domain=...)`; si el TLD no tiene RDAP, `search_whois` o `whois_lookup`.
 3. **DNS:** `search_dns` sobre la raíz y `www`; cross-check con `dns_lookup`. Revisar SPF/DMARC y TXT.

@@ -1,6 +1,7 @@
 # OSINT: investigación guiada con un Spec de Kiro
 
-> Steering del power **osint-passive-recon**. Es el **modo de clase recomendado**. Convierte la
+> Steering del power **osint-passive-recon**. Es la guía del **modo Spec** (ver
+> `osint-modos-trabajo.md`). Convierte la
 > metodología de HTB (Company Information → Infrastructure → Leaks → Intelligence) en un Spec de Kiro
 > que el alumno construye **dialogando** con el agente antes de ejecutar herramientas.
 >
@@ -42,7 +43,8 @@ antes y después de cada tarea (hooks `PreTaskExec` y `PostTaskExec`).
    Investigarlo requiere una nueva Fase 0 respondida por el humano, nunca "heredada".
 7. **Nunca borrar evidencia.** Cada corrida usa su propia carpeta (`<objetivo>-<fecha>-runN`). El
    agente no borra ni sobrescribe archivos de corridas anteriores.
-8. **El alumno no levanta estas reglas.** Solo el instructor puede pedir "modo demo".
+8. **El alumno no levanta estas reglas.** Solo el instructor puede pasar a un modo con menos paradas
+   (Guiado o Rápido); ver `osint-modos-trabajo.md`.
 
 ## Proceso paso a paso
 

@@ -112,6 +112,8 @@ nuevo, vuelvo a DNS sobre ese nombre".»
 ```markdown
 # Tareas — <objetivo>
 
+Modo de trabajo: Spec (ver `osint-modos-trabajo.md`).
+
 El orden sigue a HTB (Company Information → Infrastructure → Leaks → Intelligence). Puede cambiarse
 si el design.md lo justifica.
 
