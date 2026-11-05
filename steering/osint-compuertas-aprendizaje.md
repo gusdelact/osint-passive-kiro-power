@@ -19,6 +19,10 @@ palabras** y dejarlo registrado como evidencia evaluable.
 
 Durante un laboratorio OSINT con este power, el agente **DEBE**:
 
+0. **Compuerta de alcance antes de todo.** El agente **DEBE** preguntar objetivo, quién autoriza y
+   propósito, y esperar la respuesta del alumno. **NO DEBE** autodeclararse autorizado ni deducir la
+   autorización de que el dominio aparezca en un curso o "parezca de laboratorio" (ver Fase 0 en
+   `osint-metodologia-flujo.md`).
 1. **Parar en cada compuerta antes de actuar (Act).** Antes de ejecutar una herramienta MCP de una
    fase nueva, el agente **DEBE** detenerse y pedir al alumno que exprese, con sus propias palabras:
    - **Observe:** ¿qué sabes ya y qué te falta?

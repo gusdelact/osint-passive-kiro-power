@@ -75,7 +75,8 @@ copiar y pegar:
 
 2. **Hook `hooks/osint-gate.json`** (cumplido por el IDE): un `PreToolUse` que fuerza una
    confirmación manual antes de cada herramienta MCP, con un recordatorio del razonamiento exigido.
-   Instálalo copiándolo a la carpeta de hooks del workspace del alumno:
+   **Instalar el power no activa el hook**: Kiro solo lee hooks de `.kiro/hooks/` del workspace y no
+   copia la carpeta `hooks/` del power. Cópialo a la carpeta de hooks del workspace del alumno:
 
    ```bash
    mkdir -p .kiro/hooks && cp powers/osint-passive-recon/hooks/osint-gate.json .kiro/hooks/
@@ -152,6 +153,9 @@ el alumno no se salte Orient y Decide.
 5. **Las herramientas son limitadas**: crt.sh falla, RDAP no cubre todos los TLD, ipinfo tiene cuota.
    Contrasta con una segunda fuente (`whois_lookup`, `dns_lookup`).
 6. **La información de una fase alimenta a otra.** Encadenar es el corazón del método.
+7. **Las alertas de una herramienta no son conclusiones.** "No SPF: anyone can spoof" se lee junto
+   con DMARC y MX; los NS de la zona se contrastan con los de RDAP; la ausencia en crt.sh se
+   contrasta con certificados comodín. Reglas en `osint-infraestructura-dominio.md`.
 
 ## Onboarding
 
@@ -204,7 +208,9 @@ Argumentos, límites y lo que está apagado: `osint-herramientas-mcp.md`.
 
 ## Flujo de trabajo típico
 
-1. **Alcance:** declarar objetivo, propósito y autorización en `evidencia/osint/<objetivo>-<fecha>/00-alcance.md`.
+1. **Alcance:** el agente **pregunta** objetivo, quién autoriza y propósito, y espera la respuesta.
+   No se autodeclara autorizado. Escribe `evidencia/osint/<objetivo>-<fecha>/00-alcance.md` con las
+   palabras del humano (ver Fase 0 en `osint-metodologia-flujo.md`).
 2. **Registro:** `search_rdap(domain=...)`; si el TLD no tiene RDAP, `search_whois` o `whois_lookup`.
 3. **DNS:** `search_dns` sobre la raíz y `www`; cross-check con `dns_lookup`. Revisar SPF/DMARC y TXT.
 4. **IP → ASN → proveedor:** `search_ip(ip=...)` y `whois_lookup(query=<ip>)`.
@@ -228,9 +234,10 @@ Argumentos, límites y lo que está apagado: `osint-herramientas-mcp.md`.
 ## Evidencia y documentación
 
 > **Regla de persistencia de evidencia (obligatoria):** la evidencia cruda **se guarda** en el
-> workspace del proyecto, en `evidencia/osint/<objetivo>-<fecha>/`, nunca solo en `/tmp`. Cada salida
-> de herramienta se guarda sin editar, con herramienta, argumentos y fecha UTC. Los documentos
-> descargados van con su hash SHA-256.
+> workspace del proyecto, en `evidencia/osint/<objetivo>-<fecha>/`, nunca solo en `/tmp`. **Un
+> archivo por llamada** en `herramientas/`, con herramienta, argumentos y fecha UTC, y la salida
+> **literal**: sin resúmenes, sin notas de inferencia y sin combinar llamadas. La interpretación va
+> solo en `informe.md`. Los documentos descargados van con su hash SHA-256.
 
 El informe registra: alcance, hallazgos clasificados (hecho / inferencia / hipótesis), tabla de
 infraestructura, dorks generados (no ejecutados por el agente), Origin → Impact → State, pendientes y

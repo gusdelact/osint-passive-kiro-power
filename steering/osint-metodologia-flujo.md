@@ -110,8 +110,28 @@ exposición; después vuelve a **Observe**, lee la salida cruda y separa hechos 
 | 8. Leaks | ¿Hay volcados o documentos con metadatos? | `search_paste`, `exiftool_metadata` | `osint-leaks.md` |
 | 9. Intelligence | ¿Cómo se conectan los hallazgos? | (análisis) | `osint-intelligence-reporte.md` |
 
-Los subdominios nuevos de la fase 4 o 5 vuelven a la fase 2 (nuevo ciclo). Cada salida se guarda en
-`evidencia/osint/` del workspace (ver `osint-intelligence-reporte.md`).
+Los subdominios nuevos de la fase 4 o 5 vuelven a la fase 2 (nuevo ciclo). Cada salida se guarda,
+**una por llamada y sin editar**, en `evidencia/osint/<objetivo>-<fecha>/herramientas/` (ver
+`osint-intelligence-reporte.md`).
+
+### Fase 0: la autorización la declara el humano, no el agente
+
+Antes de la primera llamada a herramienta, el agente **pregunta y espera respuesta** a:
+
+1. ¿Cuál es el objetivo exacto (dominio u organización)?
+2. ¿Quién autoriza la investigación y con qué base (laboratorio del curso, dominio propio, permiso
+   por escrito)?
+3. ¿Cuál es el propósito y hay restricciones adicionales del docente?
+
+Reglas:
+
+- El agente **no se autodeclara autorizado** ni deduce la autorización de que un dominio "es
+  conocido", "aparece en un curso" o "parece de laboratorio". Aunque el dominio aparezca en material
+  didáctico, eso no autoriza a investigar la infraestructura real que hay detrás.
+- `00-alcance.md` se escribe con las **palabras del humano** (quién autoriza y por qué) y la fecha.
+  Si el humano no responde o la respuesta es ambigua, no se ejecuta ninguna herramienta.
+- Si durante la investigación aparece un dominio u organización **distinto** del autorizado (un
+  tercero, otro dominio de la empresa), el agente se detiene y pregunta antes de consultarlo.
 
 ## Mapa de guías de steering de este power
 
