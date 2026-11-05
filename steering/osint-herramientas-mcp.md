@@ -85,6 +85,17 @@ como pendiente en el informe. Nunca inventar subdominios.
 **Causa:** no todos los ccTLD tienen RDAP delegado (p. ej. `.mx`).
 **Solución:** `openosint::search_whois(domain=...)` o `osint-toolbox::whois_lookup(query=...)`.
 
+### `Unknown tool_id "...::whois_lookup"` / "herramienta diferida no cargada"
+**Causa:** no es una caída de red ni un problema del servidor. El host (Kiro) dejó esa herramienta
+en su **catálogo diferido**: existe y está conectada, pero hay que **cargarla** antes de poder
+llamarla. `whois_lookup` y `dns_lookup` del toolbox no requieren ningún binario externo, así que si
+aparecen como "no disponibles" casi siempre es esto, no una ausencia real.
+**Solución:** cargar la herramienta por su id exacto y volver a intentar la llamada. **No** marcarla
+como pendiente sin antes cargarla: eso confunde una herramienta disponible con una fuente caída.
+**Distinguir del caso real:** una herramienta diferida se resuelve cargándola (el dato sí es
+obtenible); crt.sh (HTTP 502) y `search_paste` (no resuelve `psbdmp.ws`) son **caídas de red** que sí
+se documentan como pendientes. Antes de escribir "pendiente", clasifica cuál de los dos casos es.
+
 ### El agente usa la búsqueda web integrada del host
 **Causa:** Kiro tiene herramientas web propias que el modelo puede preferir.
 **Solución:** pedir "usa solo las herramientas MCP de openosint y osint-toolbox" en el prompt o en

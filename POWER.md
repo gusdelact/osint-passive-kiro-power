@@ -74,7 +74,15 @@ copiar y pegar:
    > Activa el Power osint-passive-recon y carga el steering osint-compuertas-aprendizaje.md; trátalo como obligatorio durante este laboratorio.
 
 2. **Hook `hooks/osint-gate.json`** (cumplido por el IDE): un `PreToolUse` que fuerza una
-   confirmación manual antes de cada herramienta MCP, con un recordatorio del razonamiento exigido.
+   confirmación manual antes de cada herramienta MCP.
+
+   > **El hook solo pausa; no enseña por sí solo.** El mensaje del hook es un texto **fijo** (el IDE
+   > no le pasa qué herramienta ni con qué argumentos se llamó, así que no puede ser específico). Si
+   > el alumno solo ve ese mensaje, acabará dando "aprobar" sin pensar. Por eso la explicación real
+   > de *cada* consulta la da el agente en la **tarjeta de decisión** que escribe antes de llamar a
+   > la herramienta (regla obligatoria en `osint-metodologia-flujo.md`). El hook y la tarjeta son
+   > complementarios: la tarjeta explica, el hook obliga a detenerse y confirmar.
+
    **Instalar el power no activa el hook**: Kiro solo lee hooks de `.kiro/hooks/` del workspace y no
    copia la carpeta `hooks/` del power. Cópialo a la carpeta de hooks del workspace del alumno:
 

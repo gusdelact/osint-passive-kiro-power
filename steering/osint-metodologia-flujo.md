@@ -114,6 +114,32 @@ Los subdominios nuevos de la fase 4 o 5 vuelven a la fase 2 (nuevo ciclo). Cada 
 **una por llamada y sin editar**, en `evidencia/osint/<objetivo>-<fecha>/herramientas/` (ver
 `osint-intelligence-reporte.md`).
 
+### Tarjeta de decisión antes de cada llamada (obligatoria)
+
+Aprobar una herramienta no debe ser un clic automático. **Antes de cada llamada MCP**, el agente
+**DEBE** escribir en el chat una tarjeta corta para que el alumno entienda **qué está aprobando**:
+
+```text
+TARJETA DE DECISIÓN
+• Herramienta: osint-toolbox::dns_lookup
+• Consulta: registros A/AAAA/MX de blog.<dominio>
+• Qué envía y a quién: el nombre a resolvers DNS públicos (no al objetivo)
+• Por qué es pasiva: es una resolución DNS normal, la misma que hace cualquier visitante
+• Qué duda resuelve: ¿blog apunta a la misma IP que el apex o a un tercero?
+• Al aprobar, autorizas: esta única consulta pasiva sobre el objetivo autorizado
+```
+
+Reglas de la tarjeta:
+
+- Es **una llamada = una tarjeta**. No se agrupan varias herramientas en una sola aprobación.
+- La línea "por qué es pasiva" es obligatoria. Si el agente no puede justificarla, **no** propone la
+  llamada: la reconduce o la marca fuera de alcance.
+- La tarjeta se escribe **aunque el hook `osint-gate.json` esté activo**: el mensaje del hook es un
+  recordatorio corto y fijo; la explicación concreta de *esta* consulta vive en la tarjeta. Sin
+  tarjeta, el alumno solo ve "aprobar/cancelar" y pierde el aprendizaje.
+- En **modo laboratorio** (`osint-compuertas-aprendizaje.md`), la tarjeta no la escribe el agente:
+  la rellena el **alumno** con sus palabras (Observe/Orient/Decide) y el agente solo la valida.
+
 ### Fase 0: la autorización la declara el humano, no el agente
 
 Antes de la primera llamada a herramienta, el agente **pregunta y espera respuesta** a:
